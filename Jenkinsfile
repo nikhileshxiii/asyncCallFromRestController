@@ -9,18 +9,25 @@ pipeline {
 	stage('Build') {
             steps {
                 echo 'Building..'
-		sh 'mvn clean compile package'
+		sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+		sh 'mvn test'
             }
         }
+	stage('Package') {
+    	    steps  {
+		echo 'Packaging...'
+		sh 'mvn package'
+	    }
+	}
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-		sh 'java -jar ./target/*.jar'
+		sh 'java -jar -Dserver.port=8082 ./target/*.jar'
             }
         }
     }
