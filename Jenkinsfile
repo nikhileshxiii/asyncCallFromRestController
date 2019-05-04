@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-		sh 'java -jar -Dserver.port=8082 ./target/*.jar'
+		/* sh 'java -jar -Dserver.port=8082 ./target/*.jar' */
             }
         }
     }
