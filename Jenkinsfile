@@ -1,9 +1,15 @@
 pipeline {
     agent any
     stages {
+        stage('pre-check') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
 	stage('Build') {
             steps {
                 echo 'Building..'
+		sh 'mvn clean compile package'
             }
         }
         stage('Test') {
@@ -14,11 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-            }
-        }
-        stage('pre-check') {
-            steps {
-                sh 'mvn --version'
+		sh 'java -jar ./target/*.jar'
             }
         }
     }
